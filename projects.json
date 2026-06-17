@@ -1,0 +1,36 @@
+{
+  "rdapp": {
+    "root": "~/dev/dspace-source",
+    "editor": "code",
+    "processes": [
+      {
+        "name": "Solr + Backend",
+        "command": "$HOME/devapps/solr/bin/solr stop; $HOME/devapps/solr/bin/solr start -Dsolr.config.lib.enabled=true && java -jar $HOME/devapps/dspace/webapps/server-boot.jar",
+        "dir": "~/dev/dspace-source",
+        "open": "tab"
+      },
+      {
+        "name": "Frontend",
+        "command": "npm run start:dev",
+        "dir": "~/dev/dspace-source/rdapp-dspace-angular",
+        "open": "tab"
+      }
+    ],
+    "ai": "3",
+    "ai_dir": "~/dev/dspace-source"
+  },
+  "curriculotool": {
+    "root": "~/dev/curriculotool",
+    "editor": "code",
+    "processes": [
+      {
+        "name": "Dev Server",
+        "command": "npm run dev",
+        "dir": "~/dev/curriculotool",
+        "open": "tab"
+      }
+    ],
+    "ai": "1",
+    "ai_dir": "~/dev/curriculotool"
+  }
+}
