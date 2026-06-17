@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Workspace launcher for zsh — initialize dev environments with a single command",
   "bin": {
-    "work-setup": "./bin/install.js"
+    "work-setup": "bin/install.js"
   },
   "scripts": {
     "prepare": "chmod +x bin/install.js"
