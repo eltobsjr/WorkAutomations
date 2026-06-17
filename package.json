@@ -1,0 +1,31 @@
+{
+  "name": "work-automations",
+  "version": "1.0.0",
+  "description": "Workspace launcher for zsh — initialize dev environments with a single command",
+  "bin": {
+    "work-setup": "./bin/install.js"
+  },
+  "scripts": {
+    "prepare": "chmod +x bin/install.js"
+  },
+  "keywords": [
+    "zsh",
+    "workspace",
+    "cli",
+    "automation",
+    "terminal",
+    "developer-tools",
+    "ptyxis",
+    "gnome"
+  ],
+  "author": "eltobsjr",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eltobsjr/WorkAutomations.git"
+  },
+  "homepage": "https://github.com/eltobsjr/WorkAutomations#readme"
+}

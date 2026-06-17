@@ -1,2 +1,6 @@
 # SecondBrain — documentação pessoal local
 WorkSecondBrain/
+
+# npm
+node_modules/
+*.tgz

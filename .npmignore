@@ -1,0 +1,8 @@
+# dados pessoais do usuário — não publicar no npm
+projects.json
+CLAUDE.md
+WorkSecondBrain/
+
+# git
+.git/
+.gitignore
