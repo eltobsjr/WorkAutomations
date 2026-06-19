@@ -92,8 +92,27 @@ async function main() {
     ok('source adicionado ao .zshrc');
   }
 
+  // wrapper executável em ~/.local/bin/work
+  const localBin = join(HOME, '.local', 'bin');
+  mkdirSync(localBin, { recursive: true });
+  const wrapperPath = join(localBin, 'work');
+  const wrapperContent = `#!/usr/bin/env zsh\nsource "\${WORK_DIR:-${WORK_DIR}}/work.zsh"\nwork "$@"\n`;
+  writeFileSync(wrapperPath, wrapperContent, { mode: 0o755 });
+  ok(`executável criado em ~/.local/bin/work`);
+
+  // garante ~/.local/bin no PATH em .zshrc e .bashrc
+  const rcFiles = [ZSHRC, join(HOME, '.bashrc')];
+  for (const rc of rcFiles) {
+    let content = '';
+    try { content = readFileSync(rc, 'utf8'); } catch {}
+    if (!content.includes('.local/bin')) {
+      appendFileSync(rc, '\n# --- local bin ---\nexport PATH="$HOME/.local/bin:$PATH"\n');
+      ok(`~/.local/bin adicionado ao PATH em ${require('path').basename(rc)}`);
+    }
+  }
+
   console.log('\n\x1b[32m✓ Instalação concluída!\x1b[0m\n');
-  console.log(`  Ative agora: \x1b[1msource ~/.zshrc\x1b[0m\n`);
+  console.log(`  Ative agora (nova aba ou): \x1b[1mexport PATH="$HOME/.local/bin:$PATH"\x1b[0m\n`);
   console.log('Comandos:');
   console.log('  work new project         — cadastra novo projeto');
   console.log('  work <projeto>           — inicia o projeto');

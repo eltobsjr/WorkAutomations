@@ -1,6 +1,6 @@
 # work-automations
 
-Workspace launcher para zsh — inicializa ambientes de desenvolvimento completos com um único comando.
+Inicie seu ambiente de desenvolvimento completo com um único comando — abre terminais, editor e assistente de IA exatamente como você configurou.
 
 ## Instalação
 
@@ -8,70 +8,92 @@ Workspace launcher para zsh — inicializa ambientes de desenvolvimento completo
 ```bash
 npm install -g work-automations
 work-setup
-source ~/.zshrc
 ```
 
-**Via curl (sem precisar de Node):**
+**Via curl (sem Node.js):**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/eltobsjr/WorkAutomations/main/install.sh | bash
-source ~/.zshrc
 ```
 
-**Clonando o repositório:**
-```bash
-git clone https://github.com/eltobsjr/WorkAutomations.git ~/dev/automacoes/work
-bash ~/dev/automacoes/work/install.sh
-source ~/.zshrc
-```
-
-> Requer: **zsh**, **jq**, **ptyxis** (terminal GNOME)  
-> O instalador instala o `jq` automaticamente se não encontrar.
+> Requer: **zsh** · **jq** (instalado automaticamente) · **ptyxis** (terminal GNOME)
 
 ---
 
 ## Uso
 
 ```bash
-work <projeto>              # inicia o projeto
-work <projeto> claude       # + Claude no terminal atual
-work <projeto> copilot      # + Copilot no terminal atual
-work new project            # cadastra novo projeto (wizard interativo)
-work list                   # lista projetos cadastrados
-work info <projeto>         # detalhes e diagnóstico do projeto
-work delete <projeto>       # remove projeto
-work help                   # ajuda completa
+work new project
 ```
 
-## Como funciona
+O CLI vai perguntar:
 
-Cada projeto é configurado via wizard (`work new project`) e salvo em `projects.json`. Ao rodar `work <projeto>`, o CLI:
+1. **Nome do projeto** — identificador usado no comando (ex: `meuapp`)
+2. **Pasta raiz** — diretório principal do projeto
+3. **Processos paralelos** — cada processo tem nome de aba, comando, pasta e onde abrir (`nova aba`, `nova janela` ou `terminal atual`)
+4. **Assistente de IA** — nenhum / Claude / Copilot / ambos
 
-1. Abre o editor (VS Code, se configurado)
-2. Abre cada processo em uma nova aba ou janela do ptyxis
-3. Se `claude` ou `copilot` for passado, abre o assistente no **terminal atual** onde o comando foi digitado
+Depois disso, basta rodar:
 
 ```bash
-work rdapp              # VS Code + aba Solr/Backend + aba Frontend
-work rdapp claude       # mesmos + Claude no terminal atual
+work <projeto>
 ```
 
-## Configuração de projetos
+---
 
-O wizard `work new project` pergunta:
-- Nome do projeto
-- Pasta raiz
-- Processos paralelos (nome da aba, comando, pasta, onde abrir)
-- Assistente de IA (nenhum / claude / copilot / ambos)
+## Exemplo
 
-Os projetos ficam em `~/dev/automacoes/work/projects.json`.
+```
+$ work new project
 
-## Variável de ambiente
+╔══════════════════════════════════╗
+║       work — novo projeto        ║
+╚══════════════════════════════════╝
 
-Por padrão o `work` instala em `~/dev/automacoes/work/`. Para mudar:
+[1/4] Nome do projeto: meuapp
+[2/4] Pasta raiz [~/dev/meuapp]:
+      Abrir VS Code ao iniciar? [s/N]: s
+[3/4] Quantos processos paralelos? [1]: 2
+
+      — Processo 1/2 —
+      Nome da aba  : Backend
+      Comando      : npm run dev
+      Pasta        : ~/dev/meuapp
+      Abrir em     : nova aba
+
+      — Processo 2/2 —
+      Nome da aba  : Frontend
+      Comando      : npm run dev:client
+      Pasta        : ~/dev/meuapp/client
+      Abrir em     : nova aba
+
+[4/4] Assistente de IA? → [1] Claude
+
+✓ Projeto "meuapp" salvo!
+```
+
+A partir daí:
 
 ```bash
-WORK_INSTALL_DIR=~/.work bash install.sh
+work meuapp              # VS Code + aba Backend + aba Frontend
+work meuapp claude       # mesmos + Claude no terminal atual
 ```
+
+---
+
+## Comandos
+
+| Comando | Descrição |
+|---|---|
+| `work new project` | Cadastra novo projeto (wizard interativo) |
+| `work <projeto>` | Inicia o projeto |
+| `work <projeto> claude` | Inicia + abre Claude no terminal |
+| `work <projeto> copilot` | Inicia + abre Copilot no terminal |
+| `work list` | Lista projetos cadastrados |
+| `work info <projeto>` | Detalhes e diagnóstico do projeto |
+| `work delete <projeto>` | Remove projeto |
+| `work help` | Ajuda completa |
+
+---
 
 ## Links
 

@@ -19,18 +19,18 @@
     "ai": "3",
     "ai_dir": "~/dev/dspace-source"
   },
-  "curriculotool": {
-    "root": "~/dev/curriculotool",
+  "fusion": {
+    "root": "/home/eltobsjr/dev/Fusion",
     "editor": "code",
     "processes": [
       {
-        "name": "Dev Server",
-        "command": "npm run dev",
-        "dir": "~/dev/curriculotool",
+        "name": "aplicaçao",
+        "command": "python3 -m http.server 8080",
+        "dir": "/home/eltobsjr/dev/Fusion/v2",
         "open": "tab"
       }
     ],
     "ai": "1",
-    "ai_dir": "~/dev/curriculotool"
+    "ai_dir": "/home/eltobsjr/dev/Fusion"
   }
 }

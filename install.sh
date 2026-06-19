@@ -64,10 +64,32 @@ else
   _ok "source adicionado ao .zshrc"
 fi
 
+# ── wrapper executável em ~/.local/bin/work ───────────────────────────────
+LOCAL_BIN="$HOME/.local/bin"
+mkdir -p "$LOCAL_BIN"
+
+cat > "$LOCAL_BIN/work" << WRAPEOF
+#!/usr/bin/env zsh
+source "\${WORK_DIR:-$WORK_DIR}/work.zsh"
+work "\$@"
+WRAPEOF
+chmod +x "$LOCAL_BIN/work"
+_ok "executável criado em ~/.local/bin/work"
+
+# Garante que ~/.local/bin está no PATH em .zshrc e .bashrc
+for rc in "$ZSHRC" "$HOME/.bashrc"; do
+  if [[ -f "$rc" ]] || [[ "$rc" == "$ZSHRC" ]]; then
+    if ! grep -qE '(\.local/bin|local/bin)' "$rc" 2>/dev/null; then
+      printf '\n# --- local bin ---\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$rc"
+      _ok "~/.local/bin adicionado ao PATH em $(basename "$rc")"
+    fi
+  fi
+done
+
 echo ""
 _ok "Instalação concluída em $WORK_DIR"
 echo ""
-echo "  Ative agora: \033[1msource ~/.zshrc\033[0m"
+echo "  Ative agora (nova aba ou): \033[1mexport PATH=\"\$HOME/.local/bin:\$PATH\"\033[0m"
 echo ""
 echo "Comandos:"
 echo "  work new project         — cadastra novo projeto"
